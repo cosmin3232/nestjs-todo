@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
 import { CreateTodoDto } from './todo.dto';
 import { Todo } from './todo.entity';
 import { TodoService } from './todo.service';
@@ -21,5 +21,10 @@ export class TodoController {
     @Put(':id')
     public updateTodo(@Param('id') id: number | string, @Body() body: CreateTodoDto): Promise<Todo> {
         return this.todoService.updateTodo(id, body);
+    }
+
+    @Delete(':id')
+    public deleteTodo(@Param('id') id: number | string): Promise<Todo> {
+        return this.todoService.deleteTodo(id);
     }
 }
