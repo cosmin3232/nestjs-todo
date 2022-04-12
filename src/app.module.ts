@@ -5,7 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { getEnvPath } from './common/helper/env.helper';
 import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
-import { ApiModule } from './api/api.module';
+import { AuthModule } from './auth/auth.module';
+import { TodoModule } from './todo/todo.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
@@ -13,7 +14,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
   imports: [
     ConfigModule.forRoot({envFilePath, isGlobal: true}),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService}),
-    ApiModule,  
+    TodoModule,
+    AuthModule,  
   ],
   controllers: [AppController],
   providers: [AppService],
