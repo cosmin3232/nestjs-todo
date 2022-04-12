@@ -8,7 +8,12 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   private readonly config: ConfigService;
 
   public createTypeOrmOptions(): TypeOrmModuleOptions {
+    const isProduction = this.config.get<string>('STAGE') === 'prod';
     return {
+      ssl: isProduction,
+      extra: {
+        ssl: isProduction ? { rejectUnauthorized: false } : null,
+      },
       type: 'postgres',
       host: this.config.get<string>('DATABASE_HOST'),
       port: this.config.get<number>('DATABASE_PORT'),
